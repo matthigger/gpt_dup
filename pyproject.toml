@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "gpt-dup"
+version = "0.1.0"
+description = "Chat GPT Math Problem Duplicator"
+authors = ["higger <matt.higger@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^1.30.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
