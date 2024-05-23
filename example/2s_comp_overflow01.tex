@@ -1,0 +1,95 @@
+Sure, let's rewrite the math problem with new numbers and update the solutions accordingly.
+
+"\begin{enumerate}[i]
+    \item Give the 8-bit two's complement representations of
+    the following decimal values: $37$, $92$, $-47$, $-65$.
+    Give some justification with responses for any negative values.
+
+    \answer{
+
+        The positive values are the same as the unsigned binary:
+        \begin{center}
+            \begin{math}
+                \begin{array}{ccccc}
+                    37 & = & 32+4+1 & = & 00100101 \\
+                    92 & = & 64+16+8+4 & = & 01011100 \\
+                \end{array}
+            \end{math}
+        \end{center}
+
+        To make the remaining values negative, we'll need to activate that leading bit which adds $-2^7$ to our value. So, for the sum of all digits to be -47, we must have $-128 + x = -47 \rightarrow x = 81$. That is, the 7 rightward bits must sum to 81. Written as an 8-bit unsigned value $81 = (01010001)_2$ so that $-47 = (11010001)_2$ in 2's complement.
+
+        Similarly,
+        \begin{equation*}
+            -128 + x = -65 \rightarrow x = 63 = (00111111)_2 \rightarrow -65 = (11000001)_2 \text{ in 2's complement}
+        \end{equation*}
+
+    }
+
+    \rubric{
+        For each of the positive values (37, 92):
+        \begin{itemize}
+            \item 2 pts final correct answer (no work needs to be shown)
+        \end{itemize}
+
+        For each of the negative values (-47, -65):
+
+        \begin{itemize}
+            \item 3 pts final correct answer (-1 per bit wrong, no credit if the leading bit is not 1)
+            \item 2 pts some justification shown (some computation as shown in solution or flip all bits \& add one is acceptable)
+        \end{itemize}
+
+    }
+
+    \item Compute the following operations as a computer would, directly from the (8-bit) 2's complement representations: $-47 + 37$, $-47 - 65$, and $92 + 37$.
+    Indicate whether each operation results in an overflow or not.
+
+    \emph{Note:\/} Use the two's complement representations from part~ii above.
+
+    \answer{
+        \begin{center}
+            \begin{math}
+                \begin{array}{cccccccccccr}
+                    & & 1 & 1^1 & 0^1 & 1 & 0^1 & 0 & 0^1 & 1 & = & -47 \\
+                    + & & 0 & 0   & 1   & 0 & 0   & 1   & 0   & 1 & = & 37  \\
+                    \hline
+                    & & 0 & 0   & 0   & 1 & 1   & 1   & 0   & 0 & = & -10
+                \end{array}
+            \end{math}
+            There is \textbf{no overflow}
+        \end{center}
+
+
+        \begin{center}
+            \begin{math}
+                \begin{array}{cccccccccccr}
+                    & & 1 & 1   & 0^1 & 1   & 0 & 0 & 0 & 1 & =    & -47 \\
+                    + & & 1 & 1   & 0 & 0 & 0 & 0 & 0 & 1 & =    & -65 \\
+                    \hline
+                    & & 1 & 0   & 0   & 1 & 0 & 0 & 0 & 0 & \neq & -112
+                \end{array}
+            \end{math}
+            There is an \textbf{overflow}
+        \end{center}
+
+        \begin{center}
+            \begin{math}
+                \begin{array}{cccccccccccr}
+                    & & 0^1 & 1^1 & 0   & 1 & 1^1 & 1   & 0   & 0 & =    & 92   \\
+                    + & & 0   & 0   & 1   & 0 & 0   & 1   & 0   & 1 & =    & 37   \\
+                    \hline
+                    & & 1   & 1   & 0   & 0 & 0   & 0   & 1   & 1 & \neq & -121
+                \end{array}
+            \end{math}
+            There is an \textbf{overflow}
+        \end{center}
+
+    }
+    \rubric{
+        For each problem:
+        \begin{itemize}
+            \item 1 pt addition is completely correct
+            \item 2 pt overflow or not correctly given
+        \end{itemize}
+    }
+\end{enumerate}"
