@@ -52,7 +52,6 @@ def duplicate_and_save(file, file_out=None, verbose=True):
         f.write(new_prob)
 
     if verbose:
-        print(new_prob)
         print(f'written to: {file_out}')
 
     return file_out
