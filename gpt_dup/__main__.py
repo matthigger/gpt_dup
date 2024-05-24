@@ -1,11 +1,7 @@
 import argparse
-import os
 import pathlib
-import platform
 import re
-import sys
 from datetime import datetime
-from subprocess import Popen, PIPE
 
 from openai import OpenAI
 
@@ -36,40 +32,19 @@ def duplicate_and_save_cli():
                         help='Output File (will add index to input by default)')
     parser.add_argument('-q', '--quiet', action='store_true',
                         help='run in quiet mode', dest='quiet')
-    parser.add_argument('-a', '--async', action='store_true',
-                        help='run asynchronously (new process)', dest='asynch')
     args = parser.parse_args()
 
     duplicate_and_save(file=args.file, file_out=args.file_out,
-                       verbose=not args.quiet, asynch=args.asynch)
+                       verbose=not args.quiet)
 
 
-def duplicate_and_save(file, file_out=None, verbose=True, asynch=False):
+def duplicate_and_save(file, file_out=None, verbose=True):
     # choose a file out, write a placeholder file with timestamp
     if file_out is None:
         file_out = get_file_out_add_one(file=file)
 
     if verbose:
         print(f'new problem requested: {file_out}')
-
-    if asynch:
-        # asynchronous
-        cmd = [sys.executable, __file__, '-f', file, '-o', file_out]
-        if not verbose:
-            cmd += ['-q']
-
-        # ensure process outlives current one (waits to receive API
-        # response)
-        if platform.system() in ["Linux", "Darwin"]:
-            kwargs = dict(preexec_fn=os.setsid)
-        elif platform.system() == "Windows":
-            NotImplementedError('Async mode doesnt work in Windows')
-        else:
-            RuntimeError(f'OS not recognized: {platform.system()}')
-
-        proc = Popen(cmd, stdout=PIPE, stderr=PIPE, **kwargs)
-
-        return file_out
 
     new_prob = duplicate(file=file)
 
